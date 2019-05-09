@@ -69,6 +69,7 @@ while True:
     CURRENT_TVOC = sgp30.TVOC
     conn = psycopg2.connect("host=127.0.0.1 dbname=gas user=postgres")
     cur = conn.cursor()
+    cur.execute("SET TIME ZONE 'America/Chicago'")
     cur.execute("INSERT INTO readings VALUES(to_timestamp(%s), %s, %s)", (int(time.time()), sgp30.eCO2, sgp30.TVOC))      
     conn.commit()
     cur.close()
